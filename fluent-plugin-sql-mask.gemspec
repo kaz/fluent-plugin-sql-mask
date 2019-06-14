@@ -12,13 +12,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/kaz/fluent-plugin-sql-mask"
   spec.license       = "Apache-2.0"
 
-  test_files, files  = `git ls-files -z`.split("\x0").partition do |f|
-    f.match(%r{^(test|spec|features)/})
-  end
-  spec.files         = files
-  spec.executables   = files.grep(%r{^bin/}) { |f| File.basename(f) }
-  spec.test_files    = test_files
-  spec.require_paths = ["lib"]
+  spec.files = Dir["*.gemspec", "README.md", "LICENSE", "lib/**/*"]
 
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "rake", "~> 12.0"
