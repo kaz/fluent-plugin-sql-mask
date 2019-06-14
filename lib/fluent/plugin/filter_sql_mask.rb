@@ -14,13 +14,25 @@
 # limitations under the License.
 
 require "fluent/plugin/filter"
+require "pg_query"
 
 module Fluent
   module Plugin
     class SqlMaskFilter < Fluent::Plugin::Filter
       Fluent::Plugin.register_filter("sql_mask", self)
 
+      config_param :field, :string
+
       def filter(tag, time, record)
+        if record.has_key? @field
+          record[@field] = PgQuery.normalize record[@field]
+        end
+        record
+      rescue
+        if record.has_key? @field
+          record[@field] = "[FILTERED]"
+        end
+        record
       end
     end
   end
