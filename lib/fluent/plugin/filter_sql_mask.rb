@@ -13,8 +13,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "ffi"
 require "fluent/plugin/filter"
-require "pg_query"
+
+module Mask
+  extend FFI::Library
+  ffi_lib __dir__ + "/libsql_mask." + FFI::Platform::OS
+  attach_function :masked, [:string], :string
+end
 
 module Fluent
   module Plugin
@@ -25,12 +31,7 @@ module Fluent
 
       def filter(tag, time, record)
         if record.has_key? @field
-          record[@field] = PgQuery.normalize record[@field]
-        end
-        record
-      rescue
-        if record.has_key? @field
-          record[@field] = "[FILTERED]"
+          record[@field] = Mask.masked record[@field]
         end
         record
       end
