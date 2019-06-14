@@ -1,0 +1,3 @@
+[submodule "sql-mask"]
+	path = sql-mask
+	url = git@github.com:kaz/sql-mask.git

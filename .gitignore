@@ -1,1 +1,3 @@
 pkg
+lib/fluent/plugin/*
+!lib/fluent/plugin/*.rb
