@@ -1,8 +1,8 @@
 # fluent-plugin-sql-mask
 
-[Fluentd](https://fluentd.org/) filter plugin to do something.
+[Fluentd](https://fluentd.org/) filter plugin to mask sql literals.
 
-TODO: write description for you plugin.
+This plugin allows to masking sql literals which may be contain sensitive data.
 
 ## Installation
 
@@ -38,6 +38,6 @@ You can copy and paste generated documents here.
 
 ## Copyright
 
-* Copyright(c) 2019- TODO: Write your name
+* Copyright(c) 2019- Kazuki Sawada
 * License
   * Apache License, Version 2.0
