@@ -32,6 +32,9 @@ module Fluent
       def filter(tag, time, record)
         if record.has_key? @field
           record[@field] = Mask.masked record[@field]
+          if record[@field].empty?
+            record[@field] = "[ PARSE ERROR | FILTERED WHOLE SQL ]"
+          end
         end
         record
       end
