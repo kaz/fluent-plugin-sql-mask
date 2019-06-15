@@ -1,13 +1,19 @@
 require "bundler"
 Bundler::GemHelper.install_tasks
 
-require "ffi"
-task :build_go do
-  exec """
-    cd sql-mask
-    make
-    go build -buildmode=c-shared -o #{__dir__}/lib/fluent/plugin/libsql_mask.#{FFI::Platform::OS}
+def build_lib(platform)
   """
+    cd sql-mask
+    make libsql_mask.#{platform}
+    mv libsql_mask.#{platform} #{__dir__}/lib/fluent/plugin
+  """
+end
+
+task :build_lib_linux do
+  exec build_lib :linux
+end
+task :build_lib_darwin do
+  exec build_lib :darwin
 end
 
 require "rake/testtask"
